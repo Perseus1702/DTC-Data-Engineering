@@ -20,7 +20,7 @@ Database links:
 
 ### Prerequisites
 
--Python
--SQL
--Command Line
+- Python
+- SQL
+- Command Line
 
