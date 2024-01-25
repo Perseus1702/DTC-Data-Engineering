@@ -4,7 +4,6 @@
 
 - [About](#about)
 - [Week 1](#week1)
-- [Usage](#usage)
 
 
 ## About <a name = "about"></a>
@@ -15,13 +14,13 @@ This is a repository that will house all homework and files I prepare for the 20
 
 Introduction to Docker and PostgreSQL.
 Database links:
-*https://github.com/DataTalksClub/nyc-tlc-data/releases/download/green/green_tripdata_2019-09.csv.gz
-*https://s3.amazonaws.com/nyc-tlc/misc/taxi+_zone_lookup.csv
+-https://github.com/DataTalksClub/nyc-tlc-data/releases/download/green/green_tripdata_2019-09.csv.gz
+-https://s3.amazonaws.com/nyc-tlc/misc/taxi+_zone_lookup.csv
 
 
 ### Prerequisites
 
-Python
-SQL
-Command Line
+-Python
+-SQL
+-Command Line
 
