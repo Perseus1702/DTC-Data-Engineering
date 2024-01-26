@@ -44,7 +44,14 @@ What is version of the package *wheel* ?
 
 In: ``` docker run -it python:3.9 bash```
 
-![Alt text](image.png)
+```
+root@f025007d18e4:/# pip list
+Package    Version
+---------- -------
+pip        23.0.1
+setuptools 58.1.0
+wheel      0.42.0
+```
 
 # Prepare Postgres
 
