@@ -20,59 +20,60 @@ from sqlalchemy import create_engine
 
  
 def main(params):
-    user=params.user
-    password=params.password
-    host=params.host
-    port=params.port
-    db=params.db
-    table_name=params.table_name
-    url=params.url
+    user = params.user
+    password = params.password
+    host = params.host
+    port = params.port
+    db = params.db
+    table_name = params.table_name
+    url = params.url
     
-    csv_name='output.csv'
+    csv_name ='output.csv'
     
     # Download CSV
     os.system((f"wget {url} -O {csv_name}"))
     
     # Accessing postgres database
-    engine= create_engine(f"postgresql+psycopg2://{user}:{password}@{host}:{port}/{db}")
+    engine = create_engine(f"postgresql+psycopg2://{user}:{password}@{host}:{port}/{db}")
 
     # Preparing databse to dump data in chunks of 100000
-    df_iter=pd.read_csv(csv_name,iterator=True,chunksize=100000)
+    df_iter = pd.read_csv(csv_name, iterator = True, chunksize = 100000)
     
-    df=next(df_iter)
+    df = next(df_iter)
     
     # Changing datatype of columns from text to datetime
-    df.lpep_pickup_datetime=pd.to_datetime(df.lpep_pickup_datetime)
-    df.lpep_dropoff_datetime=pd.to_datetime(df.lpep_dropoff_datetime)
+    df.lpep_pickup_datetime = pd.to_datetime(df.lpep_pickup_datetime)
+    df.lpep_dropoff_datetime = pd.to_datetime(df.lpep_dropoff_datetime)
 
     # Creating table in database using column names
-    df.head(n=0).to_sql(con=engine,name=table_name,if_exists='replace')
+    df.head(n = 0).to_sql(con = engine,name = table_name,if_exists = 'replace')
 
     # Dumping data to database
-    df.to_sql(con=engine,name=table_name,if_exists='append')
+    df.to_sql(con = engine,name = table_name,if_exists = 'append')
 
     # This loop dumps the code in the table in chunks of 100000. It ends only when there is no more data left
     # This leads to the code ending in an error code. Something to improve upon.
     while True:
-        t_start=time()
-        df=next(df_iter)
-        df.lpep_pickup_datetime=pd.to_datetime(df.lpep_pickup_datetime)
-        df.lpep_dropoff_datetime=pd.to_datetime(df.lpep_dropoff_datetime)
-        df.to_sql(con=engine,name=table_name,if_exists='append')
-        t_end=time()
+        t_start = time()
+        df = next(df_iter)
+        df.lpep_pickup_datetime = pd.to_datetime(df.lpep_pickup_datetime)
+        df.lpep_dropoff_datetime = pd.to_datetime(df.lpep_dropoff_datetime)
+        df.to_sql(con=engine,name = table_name,if_exists = 'append')
+        t_end = time()
         print(f"Inserted data chunk. Time taken={t_end-t_start}")
         
+
+
+if __name__ == '__main__':
     
-if __name__=='__main__':
-    
-    parser = argparse.ArgumentParser(description='Ingest CSV to Postgres table.')
-    parser.add_argument('--user', help='Postgres username')
-    parser.add_argument('--password', help='Postgres password')
-    parser.add_argument('--host', help='Postgres host')
-    parser.add_argument('--port', help='Postgres port')
-    parser.add_argument('--db', help='Database name')
-    parser.add_argument('--table_name', help='Table name')
-    parser.add_argument('--url', help='URL of CSV')
+    parser = argparse.ArgumentParser(description ='Ingest CSV to Postgres table.')
+    parser.add_argument('--user', help = 'Postgres username')
+    parser.add_argument('--password', help = 'Postgres password')
+    parser.add_argument('--host', help = 'Postgres host')
+    parser.add_argument('--port', help = 'Postgres port')
+    parser.add_argument('--db', help = 'Database name')
+    parser.add_argument('--table_name', help = 'Table name')
+    parser.add_argument('--url', help = 'URL of CSV')
     
     args = parser.parse_args()
     

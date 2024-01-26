@@ -23,7 +23,7 @@ dpage/pgadmin4
 
 INGEST_DATA
 URL=https://raw.githubusercontent.com/Perseus1702/DTC-Data-Engineering/main/Week_1/green_tripdata_2019-09.csv
-py Week_1/ingest_data.py ^
+py ingest_data.py ^
 --user=root ^
 --password=root ^
 --host=localhost ^
