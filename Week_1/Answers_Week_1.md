@@ -27,8 +27,7 @@ Which tag has the following text? - *Automatically remove the container when it 
 
 In: ```docker run --help```
 
-Out: ```--rm                             Automatically remove the container
-                                       when it exits```
+Out: ```--rm    Automatically remove the container when it exits```
 
 ## Question 2. Understanding docker first run 
 
@@ -44,6 +43,7 @@ What is version of the package *wheel* ?
 
 In: ``` docker run -it python:3.9 bash```
 
+Out:
 ```
 root@f025007d18e4:/# pip list
 Package    Version
@@ -90,7 +90,10 @@ WHERE lpep_pickup_datetime >= '2019-09-18 00:00:00'
 
 AND lpep_dropoff_datetime <= '2019-09-18 23:59:59'
 ```
-
+Out:
+||count|
+|-|-|
+|1|15612|
 ## Question 4. Largest trip for each day
 
 Which was the pick up day with the largest trip distance
@@ -109,6 +112,10 @@ FROM green_taxi_data
 ORDER BY trip_distance DESC
 LIMIT 1
 ```
+Out:
+||lpep_pickup_datetime|
+|-|-|
+|1|2019-09-26 19:32:52|
 
 ## Question 5. Three biggest pick up Boroughs
 
@@ -125,7 +132,7 @@ In (SQL):
 ```
 WITH t AS 
 (
-	SELECT z."LocationID", z."Borough", g."PULocationID", g."total_amount", g.lpep_pickup_datetime"
+	SELECT z."LocationID", z."Borough", g."PULocationID", g."total_amount", g."lpep_pickup_datetime"
 	FROM public.green_taxi_data g
 	INNER JOIN public.zones z
 	ON z."LocationID" = g."PULocationID"
@@ -137,6 +144,13 @@ GROUP BY t."Borough"
 ORDER BY SUM(t."total_amount") DESC
 LIMIT 3
 ```
+Out:
+
+||Borough | sum  |
+|-|:---|:---|
+|1|Brooklyn|96333.23999999934|
+|2|Manhattan|92271.2999999985|
+|3|Queens|78671.70999999883|
 
 ## Question 6. Largest tip
 
@@ -165,8 +179,13 @@ SELECT t."Zone",MAX(t."tip_amount")
 FROM t
 GROUP BY t."Zone"
 ORDER BY MAX(t."tip_amount") DESC
+LIMIT 1
 ```
+Out:
 
+||Zone|max|
+|-|-|-|
+|1|JFK Airport|62.31|
 
 ## Terraform
 
