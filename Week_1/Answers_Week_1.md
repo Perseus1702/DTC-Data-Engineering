@@ -208,6 +208,192 @@ terraform apply
 
 Paste the output of this command into the homework submission form.
 
+Out:
+
+```
+
+Terraform will perform the following actions:
+
+  # docker_container.pg-admin will be updated in-place
+  # (imported from "6a57dfbf56d79dc03af9faabac8258e9fbd0cb88d842fac9c65b1bf63387a481")
+  ~ resource "docker_container" "pg-admin" {
+      + attach                                      = false
+        command                                     = []
+      + container_read_refresh_timeout_milliseconds = 15000
+        cpu_shares                                  = 0
+        dns                                         = []
+        dns_opts                                    = []
+        dns_search                                  = []
+        entrypoint                                  = [
+            "/entrypoint.sh",
+        ]
+        group_add                                   = []
+        hostname                                    = "6a57dfbf56d7"
+        id                                          = "6a57dfbf56d79dc03af9faabac8258e9fbd0cb88d842fac9c65b1bf63387a481"
+        image                                       = "sha256:76a6f90958250e4e99d4e4973a7f455aaf6abc5ae222b4cc8c83bb2fb7088126"
+        init                                        = false
+        ipc_mode                                    = "private"
+        log_driver                                  = "json-file"
+        log_opts                                    = {}
+      + logs                                        = false
+        max_retry_count                             = 0
+        memory                                      = 0
+        memory_swap                                 = 0
+      + must_run                                    = true
+        name                                        = "week_1-pgadmin-1"
+        network_data                                = [
+            {
+                gateway                   = "172.21.0.1"
+                global_ipv6_address       = ""
+                global_ipv6_prefix_length = 0
+                ip_address                = "172.21.0.2"
+                ip_prefix_length          = 16
+                ipv6_gateway              = ""
+                mac_address               = "02:42:ac:15:00:02"
+                network_name              = "week_1_default"
+            },
+        ]
+        network_mode                                = "week_1_default"
+        privileged                                  = false
+        publish_all_ports                           = false
+        read_only                                   = false
+      + remove_volumes                              = true
+      + restart                                     = "no"
+        rm                                          = false
+        runtime                                     = "runc"
+        security_opts                               = []
+        shm_size                                    = 64
+      + start                                       = true
+        stdin_open                                  = false
+        stop_timeout                                = 0
+        storage_opts                                = {}
+        sysctls                                     = {}
+        tmpfs                                       = {}
+        tty                                         = false
+        user                                        = "pgadmin"
+      + wait                                        = false
+      + wait_timeout                                = 60
+        working_dir                                 = "/pgadmin4"
+
+        ports {
+            external = 8080
+            internal = 80
+            ip       = "0.0.0.0"
+            protocol = "tcp"
+        }
+    }
+
+  # docker_container.pg-database will be updated in-place
+  # (imported from "776ce6a11b25b69a558a3d27cdaaca9633fe4d3a7b52c7894cbb21f233dfbb0c")
+  ~ resource "docker_container" "pg-database" {
+      + attach                                      = false
+        command                                     = [
+            "postgres",
+        ]
+      + container_read_refresh_timeout_milliseconds = 15000
+        cpu_shares                                  = 0
+        dns                                         = []
+        dns_opts                                    = []
+        dns_search                                  = []
+        entrypoint                                  = [
+            "docker-entrypoint.sh",
+        ]
+        group_add                                   = []
+        hostname                                    = "776ce6a11b25"
+        id                                          = "776ce6a11b25b69a558a3d27cdaaca9633fe4d3a7b52c7894cbb21f233dfbb0c"
+        image                                       = "sha256:0b8b9a62716c0dd10518c57099bb5036e1981ff67e0ac4be80021ffa63aa4143"
+        init                                        = false
+        ipc_mode                                    = "private"
+        log_driver                                  = "json-file"
+        log_opts                                    = {}
+      + logs                                        = false
+        max_retry_count                             = 0
+        memory                                      = 0
+        memory_swap                                 = 0
+      + must_run                                    = true
+        name                                        = "week_1-pgdatabase-1"
+        network_data                                = [
+            {
+                gateway                   = "172.21.0.1"
+                global_ipv6_address       = ""
+                global_ipv6_prefix_length = 0
+                ip_address                = "172.21.0.3"
+                ip_prefix_length          = 16
+                ipv6_gateway              = ""
+                mac_address               = "02:42:ac:15:00:03"
+                network_name              = "week_1_default"
+            },
+        ]
+        network_mode                                = "week_1_default"
+        privileged                                  = false
+        publish_all_ports                           = false
+        read_only                                   = false
+      + remove_volumes                              = true
+      + restart                                     = "no"
+        rm                                          = false
+        runtime                                     = "runc"
+        security_opts                               = []
+        shm_size                                    = 64
+      + start                                       = true
+        stdin_open                                  = false
+        stop_signal                                 = "SIGINT"
+        stop_timeout                                = 0
+        storage_opts                                = {}
+        sysctls                                     = {}
+        tmpfs                                       = {}
+        tty                                         = false
+      + wait                                        = false
+      + wait_timeout                                = 60
+
+        ports {
+            external = 5432
+            internal = 5432
+            ip       = "0.0.0.0"
+            protocol = "tcp"
+        }
+    }
+
+  # docker_network.wk1_network will be imported
+    resource "docker_network" "wk1_network" {
+        driver       = "bridge"
+        id           = "43894736a3978fc627cc67c0fc0aeb3457e52f59ecb1569950083b5cc3f227c8"
+        ingress      = false
+        internal     = false
+        ipam_driver  = "default"
+        ipam_options = {}
+        ipv6         = false
+        name         = "week_1_default"
+        options      = {}
+        scope        = "local"
+
+        ipam_config {
+            aux_address = {}
+            gateway     = "172.21.0.1"
+            subnet      = "172.21.0.0/16"
+        }
+
+        labels {
+            label = "com.docker.compose.network"
+            value = "default"
+        }
+        labels {
+            label = "com.docker.compose.project"
+            value = "week_1"
+        }
+        labels {
+            label = "com.docker.compose.version"
+            value = "2.23.3"
+        }
+    }
+
+Plan: 3 to import, 0 to add, 2 to change, 0 to destroy.
+
+Do you want to perform these actions?
+  Terraform will perform the actions described above.
+  Only 'yes' will be accepted to approve.
+
+  Enter a value: yes
+```
 
 ## Submitting the solutions
 
